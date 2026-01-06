@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="stylesheet" href="calc.css">
+
+
+ 
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Калкулатор за ресто</h2>
+  
+    <div class="section">
+      <h3>Сума за плащане</h3>
+      <div class="row">
+        <div class= "input-group">
+        <input id="dueBGN" type="number" placeholder="лв">
+        <span class="currency">лв</span>
+      </div>
+      <div class= "input-group">
+        <input id="dueEUR" type="text" readonly placeholder="€">
+        <span class="currency">€</span>
+      </div>
+        
+        
+      </div>
+    </div>
+  
+    <div class="section">
+      <h3>Платена сума</h3>
+      <div class="row">
+        <div class= "input-group">
+          <input id="paidBGN" type="number" placeholder="лв">
+          <span class="currency">лв</span>
+        </div>
+        <div class= "input-group">
+          <input id="paidEUR" type="number" placeholder="€">
+          <span class="currency">€</span>
+        </div>
+        
+      </div>
+    </div>
+  
+    <div class="section result">
+      <h3>Ресто</h3>
+      <div class="row">
+        <div class= "input-group">
+          <input id="changeBGN" readonly placeholder="лв">
+          <span class="currency">лв</span>
+        </div>
+        <div class= "input-group">
+          <input id="changeEUR" readonly placeholder="€">
+          <span class="currency">€</span>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
+
+<script src="calc.js" defer></script>
+</body>
+</html>
