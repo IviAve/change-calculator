@@ -1,8 +1,3 @@
-
-
-
-console.log('JS loaded');
-
 const RATE = 1.95583;
 
 const dueBGN = document.getElementById('dueBGN');
@@ -12,32 +7,60 @@ const paidEUR = document.getElementById('paidEUR');
 const changeBGN = document.getElementById('changeBGN');
 const changeEUR = document.getElementById('changeEUR');
 
+let lastDueEdited = 'BGN';
+let lastPaidEdited = 'BGN';
+
+function calculate() {
+  
+  let dueTotalBGN = 0;
+  if (lastDueEdited === 'BGN') {
+    dueTotalBGN = Number(dueBGN.value) || 0;
+  } else {
+    dueTotalBGN = (Number(dueEUR.value) || 0) * RATE;
+  }
+
+  
+  let paidTotalBGN = 0;
+  if (lastPaidEdited === 'BGN') {
+    paidTotalBGN = Number(paidBGN.value) || 0;
+  } else {
+    paidTotalBGN = (Number(paidEUR.value) || 0) * RATE;
+  }
+
+  const change = paidTotalBGN - dueTotalBGN;
+
+  
+  changeBGN.value = change > 0 ? change.toFixed(2) : '0.00';
+  changeEUR.value = change > 0 ? (change / RATE).toFixed(2) : '0.00';
+}
+
+
 dueBGN.addEventListener('input', () => {
-  const val = Number(dueBGN.value) || 0;
-  dueEUR.value = (val / RATE).toFixed(2);
+  lastDueEdited = 'BGN';
+  const val = dueBGN.value ? Number(dueBGN.value) : 0;
+  dueEUR.value = val ? (val / RATE).toFixed(2) : '';
   calculate();
 });
 
+dueEUR.addEventListener('input', () => {
+  lastDueEdited = 'EUR';
+  const val = dueEUR.value ? Number(dueEUR.value) : 0;
+  dueBGN.value = val ? (val * RATE).toFixed(2) : '';
+  calculate();
+});
+
+
 paidBGN.addEventListener('input', () => {
-  paidEUR.value = paidBGN.value
-    ? (paidBGN.value / RATE).toFixed(2)
-    : '';
+  lastPaidEdited = 'BGN';
+  const val = paidBGN.value ? Number(paidBGN.value) : 0;
+  paidEUR.value = val ? (val / RATE).toFixed(2) : '';
   calculate();
 });
 
 paidEUR.addEventListener('input', () => {
-  paidBGN.value = paidEUR.value
-    ? (paidEUR.value * RATE).toFixed(2)
-    : '';
+  lastPaidEdited = 'EUR';
+  const val = paidEUR.value ? Number(paidEUR.value) : 0;
+  paidBGN.value = val ? (val * RATE).toFixed(2) : '';
   calculate();
 });
 
-function calculate() {
-  const due = Number(dueBGN.value) || 0;
-  const paid = Number(paidBGN.value) || 0;
-
-  const change = paid - due;
-
-  changeBGN.value = change.toFixed(2);
-  changeEUR.value = (change / RATE).toFixed(2);
-}
